@@ -1101,8 +1101,15 @@ def main():
     else: ax.set_ylabel('Normalised Counts')
     print("Final spectrum will be saved after window is closed.")
     plt.show()
-    #Save the generated spectras values as numpy arrays
+    #--------------------New update----------------------
+    #For extracting the output spectrum in ascii format 
     fnameSuffix=raw_input("Enter any suffix, you want to add to the output spectra file names: ")
+    scifnameNew_ascii = os.path.splitext(scifname)[0]+'_'+fnameSuffix
+    Scidata=np.column_stack((CorrSciWL/10000.0,CorrSci))
+    np.savetxt(scifnameNew_ascii,Scidata, delimiter=' ')
+    print('The spectra in ascii format was saved by the following name:',scifnameNew_ascii)
+    #--------------------------------------------------
+    #Save the generated spectras values as numpy arrays
     scifnameNew = os.path.splitext(scifname)[0]+'_'+fnameSuffix
     stdfnameNew = os.path.splitext(stdfname)[0]+'_'+fnameSuffix
     np.save(scifnameNew+'_Y_',np.array(np.ma.compressed(CorrSci)))  #Adding extra np.array to fix the bug in numpy till a fix 
